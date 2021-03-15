@@ -1,9 +1,14 @@
 package com.db;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.Document;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.SerializationConfig;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -66,18 +71,24 @@ public class StudentDatabase
 	}
 	*/
 	
-	public static List<Document> getStudents() 
+	public static ArrayList<Document> getStudents() throws JsonParseException, JsonMappingException, IOException 
 	{
 		MongoClient client = MongoClients.create();
 		MongoDatabase db = client.getDatabase(databaseName);
 		MongoCollection<Document> students = db.getCollection(collectionName);
 		FindIterable<Document> iterator = students.find();
 		MongoCursor<Document> cursor = iterator.cursor();
-		List<Document> allStudents = new ArrayList<Document>();
-		
+		ArrayList<Document> allStudents = new ArrayList<Document>();
+	
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationConfig.Feature.INDENT_OUTPUT);
+		Document d ;
 		while(cursor.hasNext())
 		{
-			allStudents.add(cursor.next());
+			d = cursor.next();
+			d.remove("_id");
+			allStudents.add(d);
+			//allStudents.get(i).
 		}
 		
 		return allStudents;
@@ -117,7 +128,7 @@ public class StudentDatabase
 			checkDoc.put("ERROR", "This Object found in database with the SAME ID as in the supplied Object");
 			return checkDoc;
 		}
-		Document studentDoc = Document.parse(studentObject.toJsonString());
+		Document studentDoc = Document.parse(studentObject.toString());
 		students.insertOne(studentDoc);
 		return studentDoc;
 	}
@@ -138,7 +149,7 @@ public class StudentDatabase
 		students.findOneAndDelete(Filters.eq("Student ID",id));
 		// Modify code to add only the details that are specified in the studentObject whihc are changed or not present 
 		// in Student Document present in database
-		Document studentDoc = Document.parse(studentObject.toJsonString());
+		Document studentDoc = Document.parse(studentObject.toString());
 		students.insertOne(studentDoc);
 		return studentDoc;
 	}

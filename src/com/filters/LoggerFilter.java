@@ -24,6 +24,7 @@ public class LoggerFilter implements Filter
 		// TODO Auto-generated method stub
 		System.out.println("Log at Filter : ID -> "+request.getParameter("id")+" -> "+request.getParameter("pwd"));
 		//response.getWriter().append("filter done");
+		
 		chain.doFilter(request, response);
 	}
 

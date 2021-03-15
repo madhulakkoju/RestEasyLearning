@@ -1,5 +1,8 @@
 package com.listeners;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
@@ -14,6 +17,7 @@ public class SessionListerner implements HttpSessionListener {
     public void sessionCreated(HttpSessionEvent sessionEvent)  { 
          // TODO Auto-generated method stub
     	System.out.println("A New Session Created !");
+    	
     }
 
     public void sessionDestroyed(HttpSessionEvent arg0)  { 

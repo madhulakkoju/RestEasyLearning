@@ -1,6 +1,8 @@
 package com.resource;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -25,14 +27,47 @@ import com.model.Student;
 @Path(value="students")
 public class StudentResource 
 {
+	/*
 	@GET
 	@Path(value="/")
 	@Produces(MediaType.APPLICATION_JSON )
-	public Response getStudents() 
+	public Response getStudents() throws JsonParseException, JsonMappingException, IOException 
 	{
 		//Mongo Document List is returned
-		List<Document> students = StudentDatabase.getStudents();
-		return Response.ok(students).build();
+		ArrayList<Document> students = StudentDatabase.getStudents();
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationConfig.Feature.INDENT_OUTPUT);
+		ArrayList<Student> allStudents = new ArrayList<Student>(students.size());
+		
+		Iterator<Document> it = students.iterator();
+		while(it.hasNext())
+		{
+			allStudents.add( mapper.readValue(it.next().toJson(),Student.class) );
+		}
+		 
+		System.out.println("Sent List");
+		return Response.ok(allStudents).build();
+	}
+	*/
+	
+	@GET
+	@Path(value="/")
+	@Produces(MediaType.APPLICATION_JSON )
+	public Response getStudents() throws JsonParseException, JsonMappingException, IOException 
+	{
+		//Mongo Document List is returned
+		ArrayList<Document> students = StudentDatabase.getStudents();
+		
+		ArrayList<String> allStudents = new ArrayList<String>(students.size());
+		
+		Iterator<Document> it = students.iterator(); 
+		while(it.hasNext()) 
+		{
+			allStudents.add(it.next().toJson());
+		}
+		 
+		System.out.println("Sent List");
+		return Response.ok(allStudents).build();
 	}
 	
 	@GET
@@ -55,7 +90,7 @@ public class StudentResource
 	@GET
 	@Path(value="/{studentId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Student getSStudent(@PathParam("studentId") String studentId) throws JsonParseException, JsonMappingException, IOException 
+	public Response getSStudent(@PathParam("studentId") String studentId) throws JsonParseException, JsonMappingException, IOException 
 	{
 		//Student studentObject = new Student("Madhu Lakkoju","17241A05F3","8686156086");
 		// Fetch student object from MONGO DB
@@ -71,7 +106,7 @@ public class StudentResource
 		
 		Student studentObject = mapper.readValue(student.toJson(),Student.class);
 		//studentObject.setMobile("--");
-		return studentObject;
+		return Response.ok( studentObject).build();
 	}
 	
 	@GET
@@ -115,6 +150,7 @@ public class StudentResource
 	{
 		System.out.println("delete ");
 		Document studentDoc = StudentDatabase.deleteStudentById(studentId);
+		studentDoc.remove("_id");
 		return Response.accepted(studentDoc).build();
 	}
 	
@@ -127,6 +163,7 @@ public class StudentResource
 			return Response.notModified("The ID in URL and ID in STUDENT body donot Match !!").build();
 		
 		Document studentDoc = StudentDatabase.updateStudent(studentId,student);		
+		studentDoc.remove("_id");
 		return Response.accepted(studentDoc).build();
 	}
 	

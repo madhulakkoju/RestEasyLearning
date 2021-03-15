@@ -1,4 +1,4 @@
-package com.model;
+ package com.model;
 
 import java.beans.JavaBean;
 import java.io.Serializable;
@@ -47,7 +47,7 @@ public class Student implements Serializable
 		this.mobile = mobile;
 	}
 	
-	public String toJsonString()
+	public String toString()
 	{
 		return "{\"Student Name\" : \""+ name+"\","+"\"Student ID\" : \""+id+"\","+"\"Student Mobile\" : \""+mobile+"\"}";
 	}
