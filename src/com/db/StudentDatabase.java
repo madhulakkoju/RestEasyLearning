@@ -125,10 +125,11 @@ public class StudentDatabase
 		
 		if(checkDoc!=null)
 		{	
-			checkDoc.put("ERROR", "This Object found in database with the SAME ID as in the supplied Object");
+			//checkDoc.put("ERROR", "This Object found in database with the SAME ID as in the supplied Object");
 			return checkDoc;
 		}
 		Document studentDoc = Document.parse(studentObject.toString());
+		studentDoc.remove("_id");
 		students.insertOne(studentDoc);
 		return studentDoc;
 	}

@@ -71,7 +71,7 @@ public class StudentResource
 	}
 	
 	@GET
-	@Path(value="/doc/{studentId}")
+	@Path(value="/{studentId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getStudent(@PathParam("studentId") String studentId) 
 	{
@@ -83,10 +83,12 @@ public class StudentResource
 	
 		//System.out.println(student.toString());
 		Document student = StudentDatabase.getStudentById(studentId);
-		student.remove("_id");
+		if(student!=null)
+			student.remove("_id");
 		return Response.ok(student).build();
 	}
 	
+	/*
 	@GET
 	@Path(value="/{studentId}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -109,6 +111,7 @@ public class StudentResource
 		return Response.ok( studentObject).build();
 	}
 	
+	
 	@GET
 	@Path(value="/json/{studentId}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -130,6 +133,7 @@ public class StudentResource
 		//studentObject.setMobile("--");
 		return studentObject;
 	}
+	*/
 	
 	@POST
 	@Path(value="/")
@@ -138,9 +142,8 @@ public class StudentResource
 	public Response addStudent(Student student)
 	{
 		Document doc = StudentDatabase.addStudent(student);
-		if(doc!=null)
+		doc.remove("_id");
 		return Response.accepted(doc).build();
-		return Response.notModified("Data Not Added").build();
 	}
 	
 	@DELETE

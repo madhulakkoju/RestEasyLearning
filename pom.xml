@@ -31,12 +31,6 @@
     <version>3.15.0.Final</version>
 </dependency>
   
-  <dependency>
-    <groupId>junit</groupId>
-    <artifactId>junit</artifactId>
-    <version>4.11</version>
-    <scope>test</scope>
-</dependency>
   
   <!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-core-asl -->
 <dependency>
@@ -63,7 +57,7 @@
     <version>20160810</version>
 </dependency>
   
-</dependencies>
+  </dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>

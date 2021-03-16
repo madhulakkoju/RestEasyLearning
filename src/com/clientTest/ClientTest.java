@@ -58,36 +58,41 @@ public class ClientTest
 		//return students;
 	}
 	
-	public void deleteStudent(int id)
+	public Student deleteStudent(String id)
 	{
 		ResteasyClient client = new ResteasyClientBuilder().build();
 		ResteasyWebTarget target = client.target(baseUrl+id);
 		
 		Response response = target.request().delete();
-		
-		System.out.println("Deleted Student Object : "+response.readEntity(Student.class));
-		
+		Student str = response.readEntity(Student.class);
+		//System.out.println("Deleted Student Object : "+str);
+		return str;
 	}
 	
-	public void addStudent(Student st)
+	public Student addStudent(Student st)
 	{
 		ResteasyClient client = new ResteasyClientBuilder().build();
 		ResteasyWebTarget target = client.target(baseUrl);
 		
 		Response response = target.request().post(Entity.entity(st, "application/json"));
-		System.out.println("Student Add Status to Response Object : "+response.getStatus());
+		//System.out.println("Student Add Status to Response Object : "+response.getStatus());
+		Student str = response.readEntity(Student.class);
+		return str;
 	}
 	
-	public void updateStudent(Student st)
+	public Student updateStudent(String id,Student st)
 	{
 		ResteasyClient client = new ResteasyClientBuilder().build();
 		ResteasyWebTarget target = client.target(baseUrl+st.getId());
 		
 		Response response = target.request().put(Entity.entity(st, "application/json"));
-		System.out.println("Response Status to update a student id : "+response.getStatus());
-		System.out.println("Student Object Updated as  : "+response.readEntity(Student.class));
+		//System.out.println("Response Status to update a student id : "+response.getStatus());
+		Student str = response.readEntity(Student.class);
+		//System.out.println("Student Object Updated as  : "+str);
+		return str;
 	}
 	
+	/*
 	public static void main(String args[]) throws JsonParseException, JsonMappingException, IOException
 	{
 		System.out.println("TESTER");
@@ -107,7 +112,7 @@ public class ClientTest
 		tester.getAllStudents();
 		System.out.println();
 		
-		tester.deleteStudent(4);
+		tester.deleteStudent("4");
 		System.out.println();
 		
 		Student st3 = new Student("raj","4","9874563210");
@@ -123,5 +128,5 @@ public class ClientTest
 		tester.deleteStudent(4);
 		System.out.println();
 		
-	}
+	}*/
 }
