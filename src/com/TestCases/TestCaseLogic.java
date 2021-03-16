@@ -3,14 +3,10 @@ package com.TestCases;
 
 import static org.junit.Assert.assertEquals;
 
-import javax.ws.rs.core.Request;
-import javax.ws.rs.core.Response;
-
 import org.junit.Test;
 
 import com.clientTest.ClientTest;
-import com.model.Student;
-import com.resource.StudentResource;  
+import com.model.Student;  
 
 public class TestCaseLogic {
 	

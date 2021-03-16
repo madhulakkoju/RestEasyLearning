@@ -1,8 +1,5 @@
 package com.listeners;
 
-import java.io.FileWriter;
-import java.io.IOException;
-
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;

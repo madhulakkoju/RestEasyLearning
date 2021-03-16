@@ -9,6 +9,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
 @JavaBean
 public class Student implements Serializable,Comparable<Student>
 {
+	private static final long serialVersionUID = 210920947253079541L;
+
 	@JsonProperty("Student Name")
 	private String name;
 	

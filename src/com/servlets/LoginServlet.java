@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
+	private static final long serialVersionUID = 3358786867422744662L;
 
 	public boolean authenticate(String id, String password)
 	{

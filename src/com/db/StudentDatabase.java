@@ -2,16 +2,11 @@ package com.db;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-
 import org.bson.Document;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.model.Student;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;

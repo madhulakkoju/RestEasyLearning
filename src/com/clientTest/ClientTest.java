@@ -41,6 +41,7 @@ public class ClientTest
 		
 		Response response = target.request().get();
 		
+		@SuppressWarnings("unchecked")
 		ArrayList<String> students = response.readEntity(ArrayList.class);
 		
 		System.out.println("As a list of Strings : " +students);

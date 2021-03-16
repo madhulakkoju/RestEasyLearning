@@ -7,11 +7,6 @@
   
   <dependencies>
   <!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-jaxrs -->
-<dependency>
-    <groupId>org.jboss.resteasy</groupId>
-    <artifactId>resteasy-jaxrs</artifactId>
-    <version>3.15.0.Final</version>
-</dependency>
   
 <dependency>
     <groupId>org.jboss.resteasy</groupId>
@@ -37,11 +32,6 @@
     <groupId>org.codehaus.jackson</groupId>
     <artifactId>jackson-core-asl</artifactId>
     <version>1.9.13</version>
-</dependency>
-  <dependency>
-    <groupId>com.fasterxml.jackson.core</groupId>
-    <artifactId>jackson-databind</artifactId>
-    <version>2.9.8</version>
 </dependency>
    
   <!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
